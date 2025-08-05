@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { Account } from 'src/entities/account.entity';
 
@@ -6,8 +6,23 @@ import { Account } from 'src/entities/account.entity';
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
-  @Post()
-  create(@Body() account: Account): Account {
+  create(account: Account): Account {
     return this.accountService.create(account);
+  }
+
+  findAll(): Account[] {
+    return this.accountService.findAll();
+  }
+
+  findOne(id: number): Account {
+    return this.accountService.findOne(id);
+  }
+
+  update(id: number, account: Account): Account {
+    return this.accountService.update(id, account);
+  }
+
+  remove(id: number): void {
+    this.accountService.remove(id);
   }
 }
